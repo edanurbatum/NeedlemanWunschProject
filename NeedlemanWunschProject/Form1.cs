@@ -113,9 +113,7 @@ namespace NeedlemanWunschProject
             }
 
             gridviewDuzenle(dizin1, dizin2);
-            //dizilimKarsilastirma(dizin1, dizin2);
             hizala(dizin1, dizin2);
-            //tabloyuDoldur(dizin1,dizin2);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -180,8 +178,6 @@ namespace NeedlemanWunschProject
                 dataGridView1.Rows[0].Cells[i + 1].Value = dizin1[i - 1];
             }
 
-            //TGGTG
-
             dataGridView1.Rows[1].Cells[1].Value = 0;
             listBox1.Items.Add(dataGridView1.Rows[0].Cells[2].Value);
 
@@ -210,7 +206,6 @@ namespace NeedlemanWunschProject
                         sonuc = mismatch;
                     }
                 }
-
             }
             return sonuc;
         }
@@ -271,14 +266,11 @@ namespace NeedlemanWunschProject
                         t1 = rs.Next(-50, t3);
                         t2 = rs.Next(-50, t3);
                     }
-                    //tabloyuDoldur(dizin1, dizin2, t1, t2, t3);
                     int sonucc=islemlerSonuc(t1,t2,t3);
                     dataGridView1.Rows[i].Cells[j].Value = sonucc;
                 }
                 
             }
-        }
-       
-       
+        } 
     }
 }
