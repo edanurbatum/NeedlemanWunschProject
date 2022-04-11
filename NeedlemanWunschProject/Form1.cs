@@ -13,9 +13,6 @@ namespace NeedlemanWunschProject
 {
     public partial class Form1 : Form
     {
-        string dosyaYolu;
-        private DataSet dataSet;
-
         public Form1()
         {
             InitializeComponent();
@@ -44,50 +41,12 @@ namespace NeedlemanWunschProject
                     textBox6.Text = lines[0];
                     textBox4.Text = lines[1];
                 }
-
-            }
-        }
-        public void degerleriAl()
-        {
-            int match, mismatch, gap;
-
-            if (textBox1.Text == "")
-            {
-                match = 1;
-                textBox1.Text = match.ToString();
-            }
-            else
-            {
-                match = Convert.ToInt32(textBox1.Text);
-            }
-
-            if (textBox2.Text == "")
-            {
-                mismatch = -1;
-                textBox2.Text = mismatch.ToString();
-            }
-            else
-            {
-                mismatch = Convert.ToInt32(textBox2.Text);
-            }
-
-            if (textBox3.Text == "")
-            {
-                gap = -2;
-                textBox3.Text = gap.ToString();
-            }
-            else
-            {
-                gap = Convert.ToInt32(textBox3.Text);
             }
         }
         private void button2_Click_1(object sender, EventArgs e)
         {
-            //1
             degerleriAl();
 
-
-            //3
             int boyut1 = Convert.ToInt32(textBox6.Text);
             int boyut2 = Convert.ToInt32(textBox7.Text);
 
@@ -138,32 +97,67 @@ namespace NeedlemanWunschProject
 
             }
         }
+        public void degerleriAl()
+        {
+            int match, mismatch, gap;
+
+            if (textBox1.Text == "")
+            {
+                match = 1;
+                textBox1.Text = match.ToString();
+            }
+            else
+            {
+                match = Convert.ToInt32(textBox1.Text);
+            }
+
+            if (textBox2.Text == "")
+            {
+                mismatch = -1;
+                textBox2.Text = mismatch.ToString();
+            }
+            else
+            {
+                mismatch = Convert.ToInt32(textBox2.Text);
+            }
+
+            if (textBox3.Text == "")
+            {
+                gap = -2;
+                textBox3.Text = gap.ToString();
+            }
+            else
+            {
+                gap = Convert.ToInt32(textBox3.Text);
+            }
+        }
+        
         void gridviewDuzenle(string[] dizin1, string[] dizin2)
         {
 
             DataTable tablo = new DataTable();
 
-            string dizilimRow = " ";
-            string header = "";
-            tablo.Columns.Add(dizilimRow);
-            tablo.Columns.Add(dizilimRow + dizilimRow);
+            string header1 = " ";
+            string header2 = "";
+            tablo.Columns.Add(header1);
+            tablo.Columns.Add(header1 + header1);
 
             DataRow row1 = tablo.NewRow();
             tablo.Rows.Add(row1);
-            tablo.Rows.Add(dizilimRow);
+            tablo.Rows.Add(header1);
 
             dataGridView1.DataSource = tablo;
 
             for (int i = 0; i < dizin1.Length; i++)
             {
-                tablo.Columns.Add(header);
-                header += header;
+                tablo.Columns.Add(header2);
+                header2 += header2;
             }
 
             for (int i = 0; i < dizin2.Length; i++)//aşağı doğru olanlar
             {
                 DataRow row = tablo.NewRow();
-                row[dizilimRow] = dizin2[i];
+                row[header1] = dizin2[i];
                 tablo.Rows.Add(row);
                 dataGridView1.DataSource = tablo;
             }
@@ -178,28 +172,21 @@ namespace NeedlemanWunschProject
             listBox1.Items.Add(dataGridView1.Rows[0].Cells[2].Value);
 
         }
-        public int dizilimKarsilastirma(string[] dizin1, string[] dizin2)
+
+        public int dizilimKarsilastirma(int j, int i)
         {
             int match = Convert.ToInt32(textBox1.Text);
             int mismatch = Convert.ToInt32(textBox2.Text);
 
             int sonuc = 0;
 
-            for (int i = 0; i < dizin1.Length; i++)
+            if (String.Compare(dataGridView1.Rows[0].Cells[i+1].Value.ToString(), dataGridView1.Rows[j+1].Cells[0].Value.ToString()) == 0)
             {
-                for (int j = 0; j < dizin2.Length; j++)
-                {
-
-                    if (String.Compare(dataGridView1.Rows[0].Cells[j + 2].Value.ToString(), dataGridView1.Rows[i + 2].Cells[0].Value.ToString()) == 0)
-                    {
-                        sonuc = match;
-
-                    }
-                    else
-                    {
-                        sonuc = mismatch;
-                    }
-                }
+                sonuc = match;
+            }
+            else
+            {
+                sonuc = mismatch;
             }
             return sonuc;
         }
@@ -224,15 +211,15 @@ namespace NeedlemanWunschProject
             sonuc = enbuyuk;
             return sonuc;
         }
-        void hizala(string[] dizin1, string[] dizin2) 
+        void hizala(string[] dizin1, string[] dizin2)
         {
-            int karsilastirma = dizilimKarsilastirma(dizin1, dizin2);
             int gap = Convert.ToInt32(textBox3.Text);
             int t1=0, t2=0, t3=0;
             Random rs = new Random(1);
 
             for (int j = 1; j < dizin2.Length+2; j++)//cell
             {
+
                 for (int i = 1; i < dizin1.Length+2; i++)//row
                 {
                     if (i==1 && j==1)
@@ -241,10 +228,16 @@ namespace NeedlemanWunschProject
                     }
                     else if(i - 1 >= 1 && j - 1 >= 1)
                     {
+                        int karsilastirma = dizilimKarsilastirma(i-1, j-1);
+
                         int parca1 = Convert.ToInt32(dataGridView1.Rows[i - 1].Cells[j - 1].Value);
                         t1 = karsilastirma + parca1;
-                        t2 = rs.Next(-50, t1);
-                        t3 = rs.Next(-50, t1);
+
+                        int parca2 = Convert.ToInt32(dataGridView1.Rows[i - 1].Cells[j].Value);
+                        t2 = gap + parca2;
+
+                        int parca3 = Convert.ToInt32(dataGridView1.Rows[i].Cells[j - 1].Value);
+                        t3 = gap + parca3;
                     }
                     else if (i - 1 >= 1 && j >= 1)
                     {
@@ -260,10 +253,10 @@ namespace NeedlemanWunschProject
                         t1 = rs.Next(-50, t3);
                         t2 = rs.Next(-50, t3);
                     }
-                    int sonucc=islemlerSonuc(t1,t2,t3);
+
+                    int sonucc = islemlerSonuc(t1, t2, t3);
                     dataGridView1.Rows[i].Cells[j].Value = sonucc;
                 }
-                
             }
         } 
     }
