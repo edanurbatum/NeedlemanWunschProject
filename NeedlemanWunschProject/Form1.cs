@@ -91,25 +91,21 @@ namespace NeedlemanWunschProject
             int boyut1 = Convert.ToInt32(textBox6.Text);
             int boyut2 = Convert.ToInt32(textBox7.Text);
 
-            string[,] matris = new string[boyut1, boyut2];//matrisin tanımlanması
-
             //textboxlarda yazan dizilimleri diziye atma
             string metin = textBox4.Text;
             string[] dizin1 = new string[boyut1];
 
             string metin2 = textBox5.Text;
-            string[] dizin2 = new string[boyut1];
+            string[] dizin2 = new string[boyut2];
 
             for (int i = 0; i < metin.Length; i++)
             {
                 dizin1[i] = metin[i].ToString();
-                listBox1.Items.Add(dizin1[i]);
             }
 
             for (int i = 0; i < metin2.Length; i++)
             {
                 dizin2[i] = metin2[i].ToString();
-                listBox1.Items.Add(dizin2[i]);
             }
 
             gridviewDuzenle(dizin1, dizin2);
@@ -196,13 +192,11 @@ namespace NeedlemanWunschProject
 
                     if (String.Compare(dataGridView1.Rows[0].Cells[j + 2].Value.ToString(), dataGridView1.Rows[i + 2].Cells[0].Value.ToString()) == 0)
                     {
-                        dataGridView1.Rows[i + 2].Cells[j + 2].Value = 1;
                         sonuc = match;
 
                     }
                     else
                     {
-                        dataGridView1.Rows[i + 2].Cells[j + 2].Value = -1;
                         sonuc = mismatch;
                     }
                 }
