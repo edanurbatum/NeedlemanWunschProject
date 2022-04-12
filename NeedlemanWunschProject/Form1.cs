@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,7 +17,7 @@ namespace NeedlemanWunschProject
         public Form1()
         {
             InitializeComponent();
-        }  
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -69,6 +70,9 @@ namespace NeedlemanWunschProject
 
             gridviewDuzenle(dizin1, dizin2);
             hizala(dizin1, dizin2);
+            toparla2(dizin1, dizin2);
+            //toparla3(dizin1, dizin2);
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -131,7 +135,7 @@ namespace NeedlemanWunschProject
                 gap = Convert.ToInt32(textBox3.Text);
             }
         }
-        
+
         void gridviewDuzenle(string[] dizin1, string[] dizin2)
         {
 
@@ -163,7 +167,7 @@ namespace NeedlemanWunschProject
             }
 
 
-            for (int i = 1; i < dizin1.Length+1; i++)
+            for (int i = 1; i < dizin1.Length + 1; i++)
             {
                 dataGridView1.Rows[0].Cells[i + 1].Value = dizin1[i - 1];
             }
@@ -180,7 +184,7 @@ namespace NeedlemanWunschProject
 
             int sonuc = 0;
 
-            if (String.Compare(dataGridView1.Rows[0].Cells[i+1].Value.ToString(), dataGridView1.Rows[j+1].Cells[0].Value.ToString()) == 0)
+            if (String.Compare(dataGridView1.Rows[0].Cells[i + 1].Value.ToString(), dataGridView1.Rows[j + 1].Cells[0].Value.ToString()) == 0)
             {
                 sonuc = match;
             }
@@ -214,21 +218,21 @@ namespace NeedlemanWunschProject
         void hizala(string[] dizin1, string[] dizin2)
         {
             int gap = Convert.ToInt32(textBox3.Text);
-            int t1=0, t2=0, t3=0;
+            int t1 = 0, t2 = 0, t3 = 0;
             Random rs = new Random(1);
 
-            for (int j = 1; j < dizin2.Length+2; j++)//cell
+            for (int j = 1; j < dizin2.Length + 2; j++)//cell
             {
 
-                for (int i = 1; i < dizin1.Length+2; i++)//row
+                for (int i = 1; i < dizin1.Length + 2; i++)//row
                 {
-                    if (i==1 && j==1)
+                    if (i == 1 && j == 1)
                     {
 
                     }
-                    else if(i - 1 >= 1 && j - 1 >= 1)
+                    else if (i - 1 >= 1 && j - 1 >= 1)
                     {
-                        int karsilastirma = dizilimKarsilastirma(i-1, j-1);
+                        int karsilastirma = dizilimKarsilastirma(i - 1, j - 1);
 
                         int parca1 = Convert.ToInt32(dataGridView1.Rows[i - 1].Cells[j - 1].Value);
                         t1 = karsilastirma + parca1;
@@ -246,7 +250,7 @@ namespace NeedlemanWunschProject
                         t1 = rs.Next(-50, t2);
                         t3 = rs.Next(-50, t2);
                     }
-                    else if (i>=1 && j-1>=1)
+                    else if (i >= 1 && j - 1 >= 1)
                     {
                         int parca3 = Convert.ToInt32(dataGridView1.Rows[i].Cells[j - 1].Value);
                         t3 = gap + parca3;
@@ -258,6 +262,151 @@ namespace NeedlemanWunschProject
                     dataGridView1.Rows[i].Cells[j].Value = sonucc;
                 }
             }
-        } 
+        }
+
+        void toparla(string[] dizin1, string[] dizin2)
+        {
+            List<int> iDegerleri = new List<int>();
+            List<int> jDegerleri = new List<int>();
+
+            int ilkJ = dizin1.Length + 1;
+            int ilkI = dizin2.Length + 1;
+            int ilkDeger = Convert.ToInt32(dataGridView1.Rows[ilkJ].Cells[ilkI].Value);
+            iDegerleri.Add(ilkI);
+            jDegerleri.Add(ilkJ);
+            int sonrakiDeger, komsuDeger1, komsuDeger2, komsuDeger3;
+
+            for (int i = ilkI; i > 1; i--)//cell
+            {
+                for (int j = ilkJ; j > 1; j--)//row
+                {
+                    komsuDeger1 = Convert.ToInt32(dataGridView1.Rows[j - 1].Cells[i].Value);
+                    komsuDeger2 = Convert.ToInt32(dataGridView1.Rows[j - 1].Cells[i - 1].Value);
+                    komsuDeger3 = Convert.ToInt32(dataGridView1.Rows[j].Cells[i - 1].Value);
+                    int enBuyukKomsu = enBuyukKomsuyuBul(komsuDeger1, komsuDeger2, komsuDeger3);
+
+                    if (enBuyukKomsu == komsuDeger1)
+                    {
+                        j = j - 1;
+                        jDegerleri.Add(j - 1);
+                        iDegerleri.Add(i);
+                    }
+                    else if (enBuyukKomsu == komsuDeger2)
+                    {
+                        jDegerleri.Add(j - 1);
+                        iDegerleri.Add(i - 1);
+                    }
+                    else if (enBuyukKomsu == komsuDeger3)
+                    {
+                        jDegerleri.Add(j);
+                        iDegerleri.Add(i - 1);
+                    }
+
+                }
+            }
+
+            //foreach (var item in iDegerleri)
+            //{
+            //    listBox1.Items.Add("i"+item);
+            //}
+            //foreach (var item in jDegerleri)
+            //{
+            //    listBox1.Items.Add("j"+item);
+            //}
+
+        }
+
+        void toparla2(string[] dizin1, string[] dizin2)
+        {
+            ArrayList iDegerleri = new ArrayList();
+            ArrayList jDegerleri = new ArrayList();
+            ArrayList komsular = new ArrayList();
+
+            int i = (dizin1.Length) + 1;
+            int j = (dizin2.Length) + 1;
+
+            int ilkDeger = Convert.ToInt32(dataGridView1.Rows[j].Cells[i].Value);
+            dataGridView1.Rows[j].Cells[i].Style.BackColor = Color.LightGreen;
+
+            iDegerleri.Add(i);
+            jDegerleri.Add(j);
+            komsular.Add(ilkDeger);
+
+            int komsuDeger1, komsuDeger2, komsuDeger3;
+
+            while (i > 1 && j > 1)
+            {
+                komsuDeger1 = Convert.ToInt32(dataGridView1.Rows[j].Cells[i - 1].Value);
+                komsuDeger2 = Convert.ToInt32(dataGridView1.Rows[j - 1].Cells[i - 1].Value);
+                komsuDeger3 = Convert.ToInt32(dataGridView1.Rows[j - 1].Cells[i].Value);
+
+                int enBuyukKomsu = enBuyukKomsuyuBul(komsuDeger1, komsuDeger2, komsuDeger3);
+
+
+                if (enBuyukKomsu == komsuDeger2)
+                {
+                    j = j - 1;
+                    i = i - 1;
+                    iDegerleri.Add(i);
+                    jDegerleri.Add(j);
+                    komsular.Add(komsuDeger2);
+                    dataGridView1.Rows[j].Cells[i].Style.BackColor = Color.LightGreen;
+                    //listBox1.Items.Add(enBuyukKomsu);
+                }
+
+                else if (enBuyukKomsu == komsuDeger1)
+                {
+                    i = i - 1;
+                    iDegerleri.Add(i);
+                    jDegerleri.Add(j);
+                    komsular.Add(komsuDeger1);
+                    dataGridView1.Rows[j].Cells[i].Style.BackColor = Color.LightGreen;
+                    //listBox1.Items.Add(enBuyukKomsu);
+                }
+                else if (enBuyukKomsu == komsuDeger3)
+                {
+                    j = j - 1;
+                    iDegerleri.Add(i);
+                    jDegerleri.Add(j);
+                    komsular.Add(komsuDeger3);
+                    dataGridView1.Rows[j].Cells[i].Style.BackColor = Color.LightGreen;
+                    //listBox1.Items.Add(enBuyukKomsu);
+                }
+            }
+            //foreach (var item in jDegerleri)
+            //{
+            //    listBox1.Items.Add("j=  " + item);
+            //}
+            //foreach (var item in iDegerleri)
+            //{
+            //    listBox2.Items.Add("i=  " + item);
+            //}
+            foreach (var item in komsular)
+            {
+                listBox1.Items.Add(item);
+            }
+        }
+
+        
+        public int enBuyukKomsuyuBul(int komsu1, int komsu2, int komsu3)
+        {
+            int geciciEnBuyuk = komsu1;
+            int enBuyuk = komsu1;//geçici değişken atıyoruz
+
+            if (komsu1 > komsu2 && komsu1 > komsu3)
+            {
+                geciciEnBuyuk = komsu1;
+            }
+            else if (komsu2 > komsu1 && komsu2 > komsu3)
+            {
+                geciciEnBuyuk = komsu2;
+            }
+            else if (komsu3 > komsu2 && komsu3 > komsu1)
+            {
+                geciciEnBuyuk = komsu3;
+            }
+            enBuyuk = geciciEnBuyuk;
+            return enBuyuk;
+        }
     }
 }
