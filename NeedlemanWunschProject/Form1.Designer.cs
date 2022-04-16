@@ -29,6 +29,7 @@ namespace NeedlemanWunschProject
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -47,8 +48,12 @@ namespace NeedlemanWunschProject
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -155,7 +160,7 @@ namespace NeedlemanWunschProject
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 237);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 211);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(741, 311);
             this.dataGridView1.TabIndex = 12;
@@ -202,29 +207,61 @@ namespace NeedlemanWunschProject
             this.label7.TabIndex = 17;
             this.label7.Text = "dizin uzunluğu";
             // 
-            // listBox1
+            // textBox8
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(781, 166);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 95);
-            this.listBox1.TabIndex = 18;
+            this.textBox8.Location = new System.Drawing.Point(841, 314);
+            this.textBox8.Multiline = true;
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(183, 39);
+            this.textBox8.TabIndex = 20;
             // 
-            // listBox2
+            // textBox9
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(781, 328);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(120, 95);
-            this.listBox2.TabIndex = 19;
+            this.textBox9.Location = new System.Drawing.Point(841, 385);
+            this.textBox9.Multiline = true;
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(183, 39);
+            this.textBox9.TabIndex = 21;
+            // 
+            // textBox10
+            // 
+            this.textBox10.Location = new System.Drawing.Point(899, 192);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(100, 20);
+            this.textBox10.TabIndex = 22;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(838, 195);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(27, 13);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "skor";
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(926, 237);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(35, 13);
+            this.label9.TabIndex = 24;
+            this.label9.Text = "sayac";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(926, 569);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.listBox1);
+            this.ClientSize = new System.Drawing.Size(1055, 569);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.textBox10);
+            this.Controls.Add(this.textBox9);
+            this.Controls.Add(this.textBox8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBox7);
@@ -271,8 +308,12 @@ namespace NeedlemanWunschProject
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label9;
     }
 }
 
